@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style type="text/css">
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html{
+            font-size: 10px;
+            font-family: sans-serif;
+            scroll-behavior: smooth;
+        }
+        a{
+            text-decoration: none;
+        }
+        .container{
+            min-height: 100vh;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        /* Header Section*/
+        #header{
+            width: 100vw;
+            height: auto;
+            position: fixed;
+            left: 0;
+            top: 0;
+            z-index: 1000;
+        }
+        #header .header{
+            min-height: 8vh;
+            background-color: rgba(31, 30, 30, 0.24);
+            transition: .3s ease background-color;
+        }
+        #header .nav-bar{
+            display: flex;
+            text-align: center;
+            justify-content: space-between;
+            width: 100%;
+            height: 100%;
+            max-width: 1300px;
+            padding: 0 10px;
+
+        }
+        #header .nav-list ul{
+            position: absolute;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(31, 30, 30);
+            left: 100%;
+            display: flex;
+            flex-direction: column;
+            list-style: none;
+            top: 0;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+            overflow-x: hidden;
+            transition: .5s ease left;
+        }
+        #header .nav-list ul.active{
+            left: 0;
+        }
+        #header .nav-list a{
+            color: white;
+            text-transform: uppercase;
+            padding: 20px;
+            display: block;
+            text-decoration: none;
+            letter-spacing: .2rem ;
+            font-size: 2.5rem;
+            font-weight: 500;
+        }
+        #header .nav-list a::after{
+            content: attr(data-after);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            color: rgba(240, 248, 255, 0.021);
+            letter-spacing: 50px;
+            z-index: -1;
+            font-size: 13rem;
+            transition: .3s ease letter-spacing;
+        }
+        #header .nav-list a:hover{
+            color: crimson;
+        }
+        #header .nav-list ul li:hover a::after{
+            transform: translate(-50%, -50%) scale(1);
+            letter-spacing: initial;
+        }
+        #header .hamburger{
+            height: 60px;
+            width: 60px;
+            display: inline-block;
+            border: 3px solid white;
+            border-radius: 50%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            cursor: pointer;
+            transform: scale(.8);
+            margin-right: 20px;
+        }
+        #header .hamburger::after{
+            content: '';
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            border-radius: 50%;
+            border: 3px solid white;
+            animation: humburger_puls 3s ease infinite;
+        }
+        #header .hamburger .bar{
+            height: 2px;
+            width: 30px;
+            position: relative;
+            background-color: white;
+            z-index: -1;
+        }
+        #header .hamburger .bar::after,
+        #header .hamburger .bar::before{
+            content: '';
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            left: 0;
+            background-color: white;
+            transition: .3s ease;
+            transition-property: top, bottom;
+        }
+        #header .hamburger .bar::after{
+            top: 8px;
+        }
+        #header .hamburger .bar::before{
+            bottom: 8px;
+        }
+        #header .hamburger.active .bar::before{
+            bottom: 0;
+        }
+        #header .hamburger.hamburger.active .bar::after{
+            top: 0;
+        }
+        /* End Header Section*/
+        
+        /* Hero Section */
+        #hero{
+            background: url(../pix/BER_6468.jpg);
+            background-size: cover;
+            background-position: top center;
+            position: relative;
+            z-index: 1;
+        }
+        #hero::after{
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: black;
+            opacity: .7;
+            z-index: -1;
+        }
+        #hero .hero{
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 50px;
+            justify-content: flex-start;
+        }
+        #hero h1{
+            display: block;
+            color: transparent ; 
+            width: fit-content;
+            font-size: 4rem;
+            position: relative; 
+            animation: text_reveal .5s ease forwards;
+            animation-delay: 1s;
+        }
+        #hero h1 span{
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 0;
+            background: crimson;
+            animation: text_reveal_box 1s ease;
+            animation-delay: .3s;
+        }
+        #hero h1:nth-child(1) span{
+            animation-delay: .5s;
+        }
+        #hero h1:nth-child(2) span{
+            animation-delay: 1.5s;
+        }
+        #hero h1:nth-child(3) span{
+            animation-delay: 2.5s;
+        }
+
+        #hero h1:nth-child(1){
+            animation-delay: 1s;
+        }
+        #hero h1:nth-child(2){
+            animation-delay: 2s;
+        }
+        #hero h1:nth-child(3){
+            animation: text_reveal_name .5s ease forwards;
+            animation-delay: 3s;
+        }
+        .cta{
+            display: inline-block;
+            padding: 10px 30px;
+            color: crimson;
+            background: transparent;
+            border: 2px solid crimson;
+            font-size: 2rem;
+            letter-spacing: 1rem;
+            margin-top: 26px;
+            text-transform: uppercase;
+            transition: .3s ease;
+            transition-property: background-color, color;
+        }
+        .cta:hover{
+            color: white;
+            background: crimson;
+        }
+        .brand h1{
+            font-size: 2rem;
+            color: white;
+            text-transform: uppercase;
+        }
+        .brand h1 span{
+            color: crimson;
+        }
+        .bubbles img{
+                width: 50px;
+                border-radius: 50%;
+                animation: bubbles 5s linear infinite;
+            }
+            .bubbles{
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                position: absolute;
+                bottom: -70px;
+            }
+            @keyframes bubbles{
+                0%{
+                    transform: translateY(0);
+                    opacity: 0;
+                
+                }
+                50%{
+                    opacity: 1;
+                }
+                70%{
+                    opacity: 1;
+                }
+                100%{
+                    transform: translateY(-80vh);
+                    opacity: 0;
+                }
+
+            }
+            .bubbles img:nth-child(1){
+                animation-delay: 2s;
+                width: 25px;
+            }
+            .bubbles img:nth-child(2){
+                animation-delay: 1s;
+            }
+            .bubbles img:nth-child(3){
+                animation-delay: 3s;
+                width: 25px;
+            }
+            .bubbles img:nth-child(4){
+                animation-delay: 4.5s;
+            }
+            .bubbles img:nth-child(5){
+                animation-delay: 3s;
+            }
+            .bubbles img:nth-child(6){
+                animation-delay: 6s;
+                width: 20px;
+            }
+            .bubbles img:nth-child(7){
+                animation-delay: 7s;
+                width: 25px;
+            }
+            .bubbles img:nth-child(8){
+                animation-delay: 6s;
+                width: 16px;
+            }
+        /* End Hero Section */
+        /* Service Section */
+#services {
+  background-color: white;
+  padding: 4rem 0;
+  text-align: center;
+}  
+#services h2 {
+  color: black;
+  font-size: 30px;
+  text-align: center;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+}
+#services h2 span{
+    color: crimson;
+}
+.services-grid {
+  display: block;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px;
+}
+
+.service {
+  text-align: center;
+  width: 30%;
+  display: inline-block; 
+  padding: 0.1rem;
+}
+
+.service img {
+  width: 200px;
+  max-height: 200px;
+  margin: 80px;
+  height: auto;
+  margin-bottom: 20px;
+  border-radius: 50%;
+}
+
+.service h3 {
+  font-size: 24px;
+  margin-bottom: 1rem;
+}
+
+.service p {
+  font-size: 16px;
+}
+/* End Service Section */
+       
+        /* Projects Section */
+        #projects .projects{
+            flex-direction: column;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 90px 0;
+        }
+        #projects .projects-header h1{
+            margin-bottom: 50px;
+            color: black;
+            font-size: 30px;
+            text-transform: uppercase;
+            text-align: center;
+            margin-top: 20px;
+        }
+        #projects .projects-header h1 span{
+            color: crimson;
+        }
+        #projects .all-projects{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        #projects .project-item{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 60%;
+            margin: 50px auto;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+        #projects .project-info{
+            display: flex;
+            flex-basis: 50%;
+            flex-direction: column;
+            align-items: flex;
+            justify-content: center;
+            height: 100%;
+            width: 100%;
+            padding: 30px;
+            color: white;
+            background-image: linear-gradient(60deg, #29323c 0%, #485563 100%);
+        }
+        #projects .project-info h1{
+            font-size: 4rem;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+        #projects .project-info h2{
+            font-size: 1.8rem;
+            color: rgb(7, 1, 1);
+            font-weight: 500;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+        #projects .project-info p{
+            color: rgb(14, 12, 12);
+            margin-top: 10px;
+            font-size: 15px;
+        } 
+        #projects .project-img{
+            flex-basis: 50%;
+            height: 400px;
+            width: 300px;
+            overflow: hidden;
+            position: relative;
+        }
+        #projects .project-img::after{
+            content: '';  
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            background: black;
+            opacity: .2;
+        }
+        #projects .project-img img{
+            transition: 3s ease;
+        }
+        #projects .project-item:hover .project-img img{
+            transform: scale(1.1);
+        }
+        /* End Projects Section */
+
+        /* About Section*/
+        #about .about{
+            flex-direction: column-reverse;
+            text-align: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 100px 20px;
+        }
+        #about .col-left{
+            width: 250px;
+            height: 360px;
+        }
+        #about .col-right{
+                width: 100%;
+        }
+        #about .col-right h1{
+            color: black;
+            text-transform: uppercase;
+            font-size: 30px;
+            margin-bottom: 20px;
+        }
+        #about .col-right h1 span{
+            color: crimson;
+        }
+        #about .col-right h2{
+            font-size: 1.8rem;
+            font-weight: 500;
+            color: rgb(6, 3, 3);
+            text-transform: uppercase;
+            letter-spacing: .2rem;
+            margin-bottom: 10px;
+        }
+        #about .col-right p{
+            margin-bottom: 20px;
+            font-weight: 500;
+            font-size: 20px;
+            font-family: sans-serif;
+        }
+        #about .col-right .cta{
+            color: black;
+            margin-bottom: 50px;
+            letter-spacing: 0;
+            padding: 10px 20px;
+            font-size: 2rem;
+        }
+        #about .col-left{
+            position: relative;
+            height: 90%;
+            width: 30%;
+            border: 15px solid white;
+        }
+        #about .col-left::after{
+            content: '';
+            position: absolute;
+            left: -33px;
+            top: 19px;
+            height: 98%;
+            width: 98%;
+            border: 7px solid crimson;
+            border-right: none;
+            z-index: -1;
+        }
+        /* End About Section*/
+
+/* Contact Section*/
+#contact {
+  background-color: rgb(47, 41, 41);
+  text-align: center;
+  padding: 80px 0;
+}
+#contact h2 {
+  font-size: 30px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+#contact h2 span{
+    color: crimson;
+}
+#contact p {
+  font-size: 18px;
+  margin-bottom: 40px;
+}
+#contact form{
+    max-width: 500px;
+    margin: 0 auto;
+}
+form input,
+form textarea {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+form button {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: #333;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+form button:hover {
+  background-color: crimson;
+  color: black;
+}
+
+        /* End Contact Section*/
+        /*Media Query For Tablet*/
+        @media only screen and (min-width: 768px){
+            .cta{
+                font-size: 2.5rem;
+                padding: 20px 60px;
+            }
+            h1.section-title{
+                font-size: 6rem;
+            }
+            /* Hero */
+            #hero h1{
+                font-size: 7rem;
+            }
+            /* EndHero */
+            /* Services Section*/
+            #services .service-container .services-grid{
+                flex-basis: 45%;
+                margin: 2.5%;
+            }
+            /* End Service Section*/
+
+            /*  Project Section*/
+            #projects .project-item{
+                flex-direction: row;
+            }
+            #projects .project-item:nth-child(even){
+                flex-direction: row-reverse;
+            }
+            #projects .project-item{
+                height: 400px;
+                margin: 0;
+                width: 100%;
+                border-radius: 0;
+
+            }
+            #projects .all-projects .project-info{
+                height: 100%;
+            }
+            #projects .all-projects .project-img{
+                height: 100%;
+            }
+
+            }
+            /* End Project Section*/
+        /*Media End Query For Tablet*/
+        /* Media Query For Desktop*/
+        @media only screen and (min-width:1200px) {
+            /* Header*/
+            #header .hamburger{
+                display: none;
+            }
+            #header .nav-list ul{
+                position: initial;
+                display: block;
+                height: auto;
+                width: fit-content;
+                background-color: transparent;
+
+            }
+            #header .nav-list ul li a{
+                font-size: 1.8rem;
+            }
+            #header .nav-list ul li{
+                display: inline-block;
+            }
+            /* End Header*/
+            
+        }
+        /* End Media Query For Desktop*/
+
+        /* End Footer Section */
+        #footer{
+            background-image: linear-gradient(60deg,#29323c 0%,#485563 100%);
+        }
+        #footer .footer{
+            min-height: 200px;
+            flex-direction: column;
+            padding-top: 50px;
+        }
+        #footer h2{
+            color: white;
+            font-weight: 500; 
+            font-size: 1.8;
+            letter-spacing: .1rem;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        #footer .social-icon{
+            display: flex;
+            margin-bottom: 30px;
+        }
+        #footer .social-item{
+            width: 30px;
+            height: 30px;
+            margin: 0 5px;
+        }
+        #footer p{
+            color: white;
+            font-size: 1.3rem;
+        }
+        /* Footer Section */
+
+        /* keyframes */
+        @keyframes hamburger_puls{
+            0%{
+                opacity: 0;
+                transform: scale(1);
+            }
+            100%{
+                opacity: 0;
+                transform: scale(1.7);
+            }
+        }
+        @keyframes text_reveal_box{
+            50%{
+                width: 100%;
+                left: 0;
+            }
+            100%{
+                width: 0;
+                left: 100%;
+            }
+        }
+        @keyframes text_reveal{
+            100%{
+                color: white;
+            }
+        }
+        @keyframes text_reveal_name{
+            100%{
+                color: crimson;
+                font-weight: 500;
+            }
+        }
+        /* End keyframes */
+
+        /* Media Query For Tablet */
+        @media only screen and (min-width: 789px) {
+            .cta{
+                font-size: 2.5rem;
+                padding: 20px 60px;
+            }
+        }
+        /* End Media Query For Tablet */
+    </style>
+</head>
+<body>
+    <!--Header-->
+    <section id="header">
+        <div class="header container">
+            <div class="nav-bar">
+                <div class="brand">
+                    <a href="#hero"><h1><span>m</span>ugish<span>a</span></h1></a>
+                </div>
+                <div class="nav-list">
+                    <div class="hamburger"><div class="bar"></div></div>
+                    <ul>
+                        <li><a href="#hero" data-after="Home">Home</a></li>
+                        <li><a href="#services" data-after="Services">Servives</a></li>
+                        <li><a href="#projects" data-after="Projects">Projects</a></li>
+                        <li><a href="#about" data-after="About">About</a></li>
+                        <li><a href="#contact" data-after="Contact">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--End Header-->
+    <!--Hero Section-->
+    <section id="hero">
+        <div class="hero container">
+            <div>
+                <h1>Hello,<span></span></h1>
+                <h1>My name is<span></span></h1>
+                <h1>Mugisha<span></span></h1>
+                <a href="#projects" type="button" class="cta">portifolio</a>
+            </div>
+        </div>
+        <div class="bubbles">
+            <img src="../animated w/bubble.png.jpeg">
+            <img src="../animated w/bubble.png.jpeg">
+            <img src="../animated w/bubble.png.jpeg">
+            <img src="../animated w/bubble.png.jpeg">
+            <img src="../animated w/bubble.png.jpeg">
+            <img src="../animated w/bubble.png.jpeg">
+            <img src="../animated w/bubble.png.jpeg">
+            <img src="../animated w/bubble.png.jpeg">
+        </div>
+    </section>
+    <!--End Hero Section-->
+
+    <!--Service Section-->
+    <section id="services">
+        <div class="service-container">
+          <h2><span>our</span> Services</h2>
+          <div class="services-grid">
+            <div class="service">
+              <img src="../icon user/1266207-200.png" alt="Service 1">
+              <h3>Soft ware developer</h3>
+              <p>We create a computer application that will allow you to do your<br>specific tasks and underlying<br>system that run your devices or control network.</p>
+            </div>
+            <div class="service">
+              <img src="../icon user/images (3).png" alt="Service 2">
+              <h3>Web developer</h3>
+              <p>We design,create and maintain website,testing both<br>new and existing site and correcting<br>potential errors that may arise.</p>
+            </div>
+            <div class="service">
+              <img src="../icon user/images (2).png" alt="Service 3">
+              <h3>Mobile app developer</h3>
+              <p>We develop,create  and implement mobile application for both <br>smart phone,tablets device and computers.</p>
+            </div>
+        </div>
+        </div>
+      </section>
+    <!--End Service Section-->
+    
+    <!--Projects Section-->
+    <section id="projects">
+        <div class="projects-container">
+            <div class="projects-header">
+                <h1 class="section-title">Recent <span>projects</span></h1>
+            </div>
+            <div class="all-project">
+                <div class="project-item">
+                    <div class="project-info">
+                        <h1></h1>
+                        <h2>Try us for such</h2>
+                        <p>Educational platform.<br>Video streaming website.<br>Online magazine(website).<br>A crowdfunding webpage.</p>
+                    </div>
+                    <div class="project-img">
+                        <img src="../calculate/SharedScreenshot.jpg">
+                    </div>
+                </div>
+
+                <div class="project-item">
+                    <div class="project-info">
+                        <h1></h1>
+                        <h2>Ecommerce website</h2>
+                        <p>Do you need an ecommerce or online shop website that allows you to sell<br>products or services via internet/ you want to up grade to an<br> OVSSL security certificate? we're here for you.</p>
+                    </div>
+                    <div class="project-img">
+                        <img src="../icon user/SharedScreenshot.jpg">
+                    </div>
+                </div>
+
+                <div class="project-item">
+                    <div class="project-info">
+                        <h1></h1>
+                        <h2>Video streaming site</h2>
+                        <p>If you wish to set up a dedicated site<br>stream video content, bear in mind you're<br>going to need a significant developer. please try me. </p>
+                    </div>
+                    <div class="project-img">
+                        <img src="../check boxand radio/SharedScreenshot.jpg">
+                    </div>
+                </div>
+
+                <div class="project-item">
+                    <div class="project-info">
+                        <h1></h1>
+                        <h2>Education/health sector webpage</h2>
+                        <p>More than one in ten (13%) African used online educational and health sectors platforms to<br> <br>take a clear elearning, advanced tips about better life matters<br>via such platforms and you can own yours only that you can try us for pathetic site.</p>
+                    </div>
+                    <div class="project-img">
+                        <img src="../footer2/SharedScreenshot.jpg">
+                    </div>
+                </div>
+
+                <div class="project-item">
+                    <div class="project-info">
+                        <h1></h1>
+                        <h2>Wiki</h2>
+                        <p>A 'wiki' has became a shorthand for kind of online encyclopaedia where<br>a millions of people can find your information on your activities.<br>often the content is collaboratively written by more than one author and you can try ous.</p>
+                    </div>
+                    <div class="project-img">
+                        <img src="../f2/SharedScreenshot.jpg">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--End Projects Section-->
+
+    <!--About Section-->
+    <section id="about">
+        <div class="about container">
+            <div class="col-left">
+                <div class="img">
+                    <img src="../MYP PCS/GBWhatsApp_Statuses/Photoshop Express/citiz.png">
+                </div>
+            </div>
+            <div class="col-right">
+                <h1 class="section-title">about <span>me</span></h1>
+                <h2>Front End Developer</h2>
+                <p>Mugisha Theophile belive in building strong brands, good<br>clean design,well-crafted content, and<br>integrated strategies<br>am pride my self on customized web<br>developement and designing of premier<br>quality.</p>
+                <a href="#" class="cta">Download Resume</a>
+            </div>
+        </div>
+    </section>
+    <!--End About Section-->
+
+    <!--Contact Section-->
+    <section id="contact">
+        <div class="contact-container">
+          <h2>Contact<span> us</span></h2>
+          <p>Ready to take the first step towards your IT journey? Fill out the form below and we'll get back to you shortly via your email.</p>
+          <form>
+            <input type="text" placeholder="Your Name" required>
+            <input type="email" placeholder="Your Email" required>
+            <textarea placeholder="Your Message" required></textarea>
+            <button type="submit">Send Message</button>
+          </form>
+        </div>
+      </section>
+    
+    <!--End Contact Section-->
+
+    <!--Footer-->
+    <section id="footer">
+        <div class="footer container">
+            <div class="brand">
+                <h1><span>m</span>ugish<span>a</span></h1>
+                <h2>Your complete web solution.</h2>
+            </div>
+            <div class="social-icon">
+                <div class="social-item">
+                    <a href="#"><img src="../animated w/facebook.png.png"></a>
+                </div>
+                <div class="social-item">
+                    <a href="#"><img src="../animated w/instgram.png.png"></a>
+                </div>
+                <div class="social-item">
+                    <a href="#"><img src="../animated w/twitter.png.png"></a>
+                </div>
+            </div>
+            <p>&copy;2022mugishatheophile71@gmail.com.all right reserved</p>
+        </div>
+    </section>
+    <!--End Footer-->
+    <script src="app.js"></script>
+</body>
+</html> 
